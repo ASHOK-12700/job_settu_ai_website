@@ -1,0 +1,303 @@
+/* GrammarQuizPage.css - Harmonized Neon Academia Design */
+
+.grammar-page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Outfit', 'Inter', sans-serif;
+    animation: pageFadeIn 0.8s ease-out;
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* HERO SECTION - Mirrored aesthetics */
+.grammar-hero {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    padding: 40px 20px;
+}
+
+.grammar-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin: 0 0 16px;
+    /* Matching Vocabulary Title Gradient */
+    background: linear-gradient(135deg, #e2e8f0 0%, #94a3b8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.grammar-hero p {
+    font-size: 1.1rem;
+    color: #64748b;
+    /* Matched to vocab-subtitle color */
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+}
+
+/* QUIZ CARD - Matching .vocab-card */
+.grammar-quiz-card {
+    background: rgba(15, 23, 42, 0.7);
+    /* Match .vocab-card */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 28px;
+    /* Match .vocab-card */
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
+    /* Match .vocab-card */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    /* Match .vocab-card */
+    padding: 0;
+    /* Reset padding to handle header/content separation like vocab */
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grammar-quiz-card:hover {
+    box-shadow: 0 50px 100px -20px rgba(99, 102, 241, 0.15);
+    /* Match .vocab-card:hover */
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+/* Ambient Glow Element - Match .vocab-card::after */
+.grammar-quiz-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #818cf8, transparent);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Header - Matching .vocab-header */
+.quiz-header-premium {
+    padding: 28px 32px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quiz-badge {
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #e2e8f0, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    text-transform: none;
+    /* Reset uppercase if previously set */
+}
+
+.quiz-progress-text {
+    /* Match .vocab-score-pill */
+    background: rgba(15, 23, 42, 0.6);
+    color: #38bdf8;
+    /* Cyan */
+    padding: 8px 16px;
+    border-radius: 99px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
+}
+
+.grammar-header-title h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #e2e8f0, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+}
+
+.grammar-header-subtitle {
+    margin: 4px 0 0 0;
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Content Area Handling */
+.grammar-content-wrapper {
+    padding: 40px;
+    /* Match .vocab-content */
+    text-align: center;
+}
+
+/* Question - Match .vocab-word styling */
+.grammar-question {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0 0 40px 0;
+    letter-spacing: -0.02em;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    line-height: 1.3;
+}
+
+/* Options Grid - Match .vocab-options */
+.grammar-options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+/* Option Button - Match .vocab-option-btn */
+.grammar-option-btn {
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 24px 20px;
+    font-size: 1rem;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    /* Vocab centers text */
+}
+
+.grammar-option-btn:hover:not(:disabled) {
+    background: rgba(51, 65, 85, 0.6);
+    transform: translateY(-4px) scale(1.02);
+    border-color: #38bdf8;
+    /* Cyan glow */
+    box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.15);
+    color: white;
+}
+
+.grammar-option-btn.selected {
+    /* Match .vocab-option-btn.correct style roughly for selection, or define a distinct active state */
+    background: linear-gradient(135deg, #6366f1 0%, #4338ca 100%);
+    /* Maintain Indigo for selection before submit */
+    border-color: transparent;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px -10px rgba(99, 102, 241, 0.6);
+}
+
+/* Footer */
+.quiz-footer {
+    display: flex;
+    justify-content: center;
+    /* Centered like vocab restart button */
+    padding: 0 40px 40px;
+}
+
+/* Next Button - Match .vocab-restart-btn */
+.grammar-next-btn {
+    background: linear-gradient(135deg, #38bdf8, #2563eb);
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    width: 100%;
+    /* Full width for mobile friendliness/consistency */
+}
+
+.grammar-next-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(37, 99, 235, 0.5);
+    filter: brightness(1.1);
+}
+
+.grammar-next-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    background: #334155;
+}
+
+/* Score Screen - Match .vocab-result structure */
+.score-container {
+    text-align: center;
+    padding: 40px;
+}
+
+.score-display {
+    font-size: 5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    display: block;
+    animation: floatScore 3s ease-in-out infinite;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes floatScore {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.score-level {
+    font-size: 1.5rem;
+    color: white;
+    margin: 0 0 12px 0;
+    font-weight: 800;
+}
+
+.level-badge {
+    /* Subtext style */
+    color: #94a3b8;
+    font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .grammar-options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .grammar-hero h1 {
+        font-size: 2.5rem;
+    }
+}

@@ -1,0 +1,274 @@
+/* VocabularyQuiz.css - Premium Neon Academia Design */
+
+.vocab-section {
+    width: 100%;
+    max-width: 800px;
+    /* Matched to Grammar section width */
+    margin: 60px auto 40px;
+    font-family: 'Outfit', 'Inter', sans-serif;
+    animation: vocabSlideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+    perspective: 1000px;
+}
+
+@keyframes vocabSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.vocab-card {
+    background: rgba(15, 23, 42, 0.7);
+    /* Darker, richer base */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 28px;
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vocab-card:hover {
+    box-shadow: 0 50px 100px -20px rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+/* Ambient Glow Element */
+.vocab-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #818cf8, transparent);
+    opacity: 0.5;
+}
+
+/* Header */
+.vocab-header {
+    padding: 28px 32px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vocab-title h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: linear-gradient(to right, #e2e8f0, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 0.5px;
+}
+
+.vocab-subtitle {
+    margin: 4px 0 0 0;
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.vocab-score-pill {
+    background: rgba(15, 23, 42, 0.6);
+    color: #38bdf8;
+    /* Cyan for puzzle */
+    padding: 8px 16px;
+    border-radius: 99px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.1);
+}
+
+/* Content Area */
+.vocab-content {
+    padding: 40px;
+    text-align: center;
+}
+
+.vocab-word-label {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: #94a3b8;
+    font-weight: 800;
+    margin-bottom: 12px;
+    opacity: 0.7;
+}
+
+.vocab-word {
+    font-size: 3rem;
+    background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    margin: 0 0 40px 0;
+    letter-spacing: -0.02em;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    /* Deep shadow for 3D feel */
+}
+
+/* Options Grid - Puzzle Style */
+.vocab-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.vocab-option-btn {
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 24px 20px;
+    font-size: 1rem;
+    color: #cbd5e1;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+}
+
+.vocab-option-btn:hover:not(:disabled) {
+    background: rgba(51, 65, 85, 0.6);
+    transform: translateY(-4px) scale(1.02);
+    border-color: #38bdf8;
+    /* Cyan glow on hover */
+    box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.15);
+    color: white;
+}
+
+.vocab-option-btn:disabled {
+    cursor: default;
+    opacity: 0.6;
+}
+
+/* Correct/Wrong Animations */
+.vocab-option-btn.correct {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    /* Emerald Gradient */
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.4);
+    animation: pulseGreen 0.5s;
+}
+
+.vocab-option-btn.wrong {
+    background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+    /* Red Gradient */
+    border-color: transparent;
+    color: white;
+    animation: shake 0.4s;
+}
+
+@keyframes pulseGreen {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+/* Result Screen */
+.vocab-result {
+    text-align: center;
+    padding: 40px;
+}
+
+.result-emoji {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.result-title {
+    font-size: 2rem;
+    color: white;
+    margin: 0 0 12px 0;
+    font-weight: 800;
+}
+
+.result-text {
+    color: #94a3b8;
+    margin-bottom: 32px;
+    font-size: 1.1rem;
+}
+
+.vocab-restart-btn {
+    background: linear-gradient(135deg, #38bdf8, #2563eb);
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.vocab-restart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(37, 99, 235, 0.5);
+    filter: brightness(1.1);
+}
+
+@media (max-width: 600px) {
+    .vocab-options {
+        grid-template-columns: 1fr;
+    }
+
+    .vocab-word {
+        font-size: 2.2rem;
+    }
+}
