@@ -16,7 +16,7 @@ const allowedOrigins = [
   "http://localhost:3001",                    // local React (alternative port)
   "http://localhost:3007",                    // local React (current port)
   "https://nee-tunnel-url.ngrok-free.app",   // <-- idi ni tunnel / public URL tho replace cheyyi
-  // "https://nee-frontend.vercel.app",       // later deploy ayyaka add cheyyi
+  process.env.CLIENT_URL,                     // Production URL from env
 ];
 
 app.use(

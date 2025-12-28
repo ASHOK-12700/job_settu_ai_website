@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import CameraPreview from "../components/CameraPreview";
 
-const API_URL = "http://localhost:5000";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 // Browser speech synthesis helper
 function speakQuestion(text) {
@@ -26,14 +26,14 @@ function InterviewPage({ token, domain }) {
   const [questionCount, setQuestionCount] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
 
-  
+
   const [qaList, setQaList] = useState([]);
-  
+
   const [feedback, setFeedback] = useState(null);
 
   const recognitionRef = useRef(null);
 
-  const MAX_QUESTIONS = 10; 
+  const MAX_QUESTIONS = 10;
   const getRecognition = () => {
     if (recognitionRef.current) return recognitionRef.current;
 
@@ -51,7 +51,7 @@ function InterviewPage({ token, domain }) {
 
     recognition.onresult = (event) => {
       const transcript = event.results[0][0].transcript;
-      setAnswer(transcript); 
+      setAnswer(transcript);
       setInfo("Answer captured from your voice.");
     };
 
@@ -73,7 +73,7 @@ function InterviewPage({ token, domain }) {
   };
 
   const startRecording = () => {
-    if (isRecording) return; 
+    if (isRecording) return;
 
     const recognition = getRecognition();
     if (!recognition) {
@@ -92,66 +92,66 @@ function InterviewPage({ token, domain }) {
     setIsRecording(false);
   };
 
- const loadQuestion = async () => {
-  try {
-    
-    if (question && answer) {
-      setQaList((prev) => [
-        ...prev,
-        { question: question.text, answer },
-      ]);
-    }
+  const loadQuestion = async () => {
+    try {
 
-    
-    if (questionCount >= MAX_QUESTIONS) {
-      setInfo(
-        "Session complete. You answered all questions for this round. Generating feedback..."
-      );
-
-      
-      const finalList = [...qaList];
       if (question && answer) {
-        finalList.push({ question: question.text, answer });
+        setQaList((prev) => [
+          ...prev,
+          { question: question.text, answer },
+        ]);
       }
 
-      
-      await getFeedback(finalList);
-      return;
+
+      if (questionCount >= MAX_QUESTIONS) {
+        setInfo(
+          "Session complete. You answered all questions for this round. Generating feedback..."
+        );
+
+
+        const finalList = [...qaList];
+        if (question && answer) {
+          finalList.push({ question: question.text, answer });
+        }
+
+
+        await getFeedback(finalList);
+        return;
+      }
+
+      setInfo("");
+
+      const res = await fetch(`${API_URL}/api/ai/next-question`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          domain,
+          lastQuestion: question?.text || "",
+          lastAnswer: answer || "",
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setInfo(data.message || "AI could not generate a question.");
+        setQuestion(null);
+        return;
+      }
+
+      const nextQ = data.questionText;
+      setQuestion({ text: nextQ });
+      setAnswer("");
+      setQuestionCount((c) => c + 1);
+      speakQuestion(nextQ);
+    } catch (err) {
+      console.error("AI question load error:", err);
+      setInfo("Unable to contact AI. Please try again.");
     }
-
-    setInfo("");
-
-    const res = await fetch(`${API_URL}/api/ai/next-question`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-      body: JSON.stringify({
-        domain,
-        lastQuestion: question?.text || "",
-        lastAnswer: answer || "",
-      }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      setInfo(data.message || "AI could not generate a question.");
-      setQuestion(null);
-      return;
-    }
-
-    const nextQ = data.questionText;
-    setQuestion({ text: nextQ });
-    setAnswer("");
-    setQuestionCount((c) => c + 1);
-    speakQuestion(nextQ);
-  } catch (err) {
-    console.error("AI question load error:", err);
-    setInfo("Unable to contact AI. Please try again.");
-  }
-};
+  };
 
 
   const handleSubmitAnswer = (e) => {
@@ -160,52 +160,52 @@ function InterviewPage({ token, domain }) {
       "Answer submitted. AI feedback and scoring will be added in the next step."
     );
 
-    
+
     setTimeout(() => {
       loadQuestion();
     }, 800);
   };
 
- 
-const getFeedback = async (answersList) => {
-  try {
-    setInfo("Generating feedback for your session...");
 
-    const finalList = answersList && answersList.length
-      ? answersList
-      : qaList;
+  const getFeedback = async (answersList) => {
+    try {
+      setInfo("Generating feedback for your session...");
 
-    if (!finalList || finalList.length === 0) {
-      setInfo("No answers to evaluate. Please answer at least one question.");
-      return;
+      const finalList = answersList && answersList.length
+        ? answersList
+        : qaList;
+
+      if (!finalList || finalList.length === 0) {
+        setInfo("No answers to evaluate. Please answer at least one question.");
+        return;
+      }
+
+      const res = await fetch(`${API_URL}/api/ai/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify({
+          domain,
+          answers: finalList,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setInfo(data.message || "Could not generate feedback.");
+        return;
+      }
+
+      setFeedback(data);
+      setInfo("");
+    } catch (err) {
+      console.error("Feedback error:", err);
+      setInfo("Unable to generate feedback. Please try again.");
     }
-
-    const res = await fetch(`${API_URL}/api/ai/feedback`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      },
-      body: JSON.stringify({
-        domain,
-        answers: finalList,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      setInfo(data.message || "Could not generate feedback.");
-      return;
-    }
-
-    setFeedback(data);
-    setInfo(""); 
-  } catch (err) {
-    console.error("Feedback error:", err);
-    setInfo("Unable to generate feedback. Please try again.");
-  }
-};
+  };
 
   return (
     <div className="practice-layout">
@@ -231,8 +231,8 @@ const getFeedback = async (answersList) => {
           {question ? "Next question" : "Start mock interview"}
         </button>
 
-       
-        
+
+
 
         {question && (
           <div className="question-block">
