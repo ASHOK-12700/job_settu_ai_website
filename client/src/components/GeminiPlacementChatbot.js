@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./GeminiPlacementChatbot.css";
 
-const GeminiPlacementChatbot = ({ token }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const GeminiPlacementChatbot = ({ token, isOpen, onClose }) => {
+  // const [isOpen, setIsOpen] = useState(false); // Removed internal state
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [messages, setMessages] = useState([
     {
       role: "assistant",
       content:
-        "Hello! I am your personal Assistant. How can I help you proceed in your career today?",
+        "Hello! I am your Enterprise HR Assistant. Ask me about company policies, leave, or benefits.",
       timestamp: new Date(),
     },
   ]);
@@ -30,7 +30,9 @@ const GeminiPlacementChatbot = ({ token }) => {
   };
 
   useEffect(() => {
-    scrollToBottom();
+    if (isOpen) {
+      scrollToBottom();
+    }
   }, [messages, isOpen]);
 
   const sendMessage = async () => {
@@ -118,22 +120,8 @@ const GeminiPlacementChatbot = ({ token }) => {
 
   return (
     <>
-      {/* Floating Launcher */}
-      <div className="chatbot-launcher">
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className={`chatbot-launcher-btn ${isOpen ? 'is-open' : 'is-closed'}`}
-        >
-          {isOpen ? (
-            <span style={{ fontSize: "28px", color: "#4f46e5", height: "fit-content" }}>✕</span>
-          ) : (
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: "#4f46e5" }}>
-              {/* Elegant Chat/Sparkle Icon */}
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-            </svg>
-          )}
-        </button>
-      </div>
+      {/* Floating Launcher REMOVED - Controlled by Header */}
+
 
       {/* Main Chat Interface */}
       {isOpen && (

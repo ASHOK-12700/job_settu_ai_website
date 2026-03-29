@@ -1,0 +1,15 @@
+ONBOARDING STEPS
+
+1. **Offer Acceptance & Documentation**: Sign the offer letter digitally. Upload required documents (ID proof, Educational Certificates, Previous Relieving Letter) to the HR Portal within 48 hours.
+2. **IT & Logistics**:
+   - Confirm your shipping address for the laptop kit.
+   - You will receive a tracking ID 2 days before joining.
+   - Login credentials for Email/Slack will be sent to your personal email 24 hours prior to joining.
+3. **Day 1 (Virtual/Office)**:
+   - Join the "New Hire Orientation" call at 10:00 AM IST.
+   - Meet your Buddy and Manager.
+   - Complete the "InfoSec Awareness" module on the Learning Portal.
+4. **First Week**:
+   - Complete mandatory compliance training.
+   - Set up your benefits (Health Insurance nominees).
+   - Join team standups and introduction meetings.

@@ -4,7 +4,7 @@ import InterviewPage from "./pages/InterviewPage";
 import GrammarQuizPage from "./pages/GrammarQuizPage";
 import DomainSelector from "./components/DomainSelector";
 import ResumeSection from "./components/ResumeSection";
-import GeminiPlacementChatbot from "./components/GeminiPlacementChatbot";
+import HRAssistant from "./components/HRAssistant";
 import "./App.css";
 
 function HomePage({ onStartPractice }) {
@@ -68,9 +68,6 @@ function HomePage({ onStartPractice }) {
       </section>
 
       {/* Resume section removed from home page - now only accessible via Resume tab */}
-
-      {/* AI Placement Chatbot */}
-      <GeminiPlacementChatbot />
     </div>
   );
 }
@@ -79,13 +76,13 @@ function App() {
   // Initialize state from localStorage so login persists on refresh
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [selectedDomain, setSelectedDomain] = useState("");
-  // views: 'auth' | 'home' | 'grammar' | 'domain' | 'interview' | 'resume'
-  const [view, setView] = useState(token ? "home" : "auth");
+  // views: 'auth' | 'home' | 'grammar' | 'domain' | 'interview' | 'resume' | 'hr-assistant'
+  const [view, setView] = useState(token ? "hr-assistant" : "auth");
 
   const handleLogin = (t) => {
     localStorage.setItem("token", t); // Save to storage
     setToken(t);
-    setView("home");
+    setView("hr-assistant");
   };
 
   const handleLogout = () => {
@@ -101,21 +98,40 @@ function App() {
       <header className="navbar">
         <div className="navbar-left">
           <img
-            src="https://i.postimg.cc/q77HP3QG/Gemini-Generated-Image-7t00uq7t00uq7t00.png"
-            alt="Job Settu AI Logo"
+            src="https://i.postimg.cc/658R7Dyy/Screenshot-20251229-124141-2.png"
+            alt="VCUBE POLICY GUARD AI Logo"
             className="navbar-logo-img"
+            style={{ borderRadius: '4px', height: '48px' }}
           />
-          <span className="logo-mark">
-            <i>J</i>ob
+          <span className="logo-mark" style={{ background: 'linear-gradient(135deg, #ef4444, #f97316)' }}>
+            <i>V</i>
           </span>
           <span className="logo-text">
-            <i>S</i>ettu AI
+            VCUBE POLICY GUARD AI
           </span>
         </div>
 
         <nav className="navbar-links">
           {token && (
             <>
+              {/* HR AI Assistant Button (Primary) */}
+              <button
+                className={`nav-link ${view === "hr-assistant" ? "nav-link-active" : ""}`}
+                onClick={() => setView("hr-assistant")}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  background: view === "hr-assistant" ? 'rgba(99, 102, 241, 0.1)' : 'transparent',
+                  color: view === "hr-assistant" ? '#818cf8' : 'inherit'
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                HR AI Assistant
+              </button>
+
               <button
                 className={`nav-link ${view === "home" ? "nav-link-active" : ""
                   }`}
@@ -131,7 +147,6 @@ function App() {
               >
                 Grammar Quiz
               </button>
-
               {/* Resume tab */}
               <button
                 className={`nav-link ${view === "resume" ? "nav-link-active" : ""
@@ -205,8 +220,14 @@ function App() {
 
         {/* Home – after login */}
         {token && view === "home" && (
-          <HomePage onStartPractice={() => setView("domain")} />
+          <HomePage onStartPractice={() => {
+            setSelectedDomain("");
+            setView("domain");
+          }} />
         )}
+
+        {/* HR AI Assistant - Main Page */}
+        {token && view === "hr-assistant" && <HRAssistant />}
 
         {/* Grammar quiz */}
         {token && view === "grammar" && (
@@ -258,11 +279,8 @@ function App() {
       </main>
 
       <footer className="footer">
-        <p>© {new Date().getFullYear()} Job settu · Built for learners.</p>
+        <p>© {new Date().getFullYear()} VCUBE POLICY GUARD AI · Enterprise Security.</p>
       </footer>
-
-      {/* AI Placement Chatbot - Passed token for instant visibility update */}
-      <GeminiPlacementChatbot token={token} />
     </div>
   );
 }

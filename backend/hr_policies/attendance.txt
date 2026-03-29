@@ -1,0 +1,16 @@
+ATTENDANCE POLICY
+
+Standard Work Hours:
+- General Shift: 9:00 AM to 6:00 PM (Monday to Friday).
+- Flexible timing allowed: Check-in between 8:30 AM - 10:30 AM. Total 9 hours mandatory.
+
+Punch-in/Punch-out:
+- All employees must mark attendance via biometric or the HR mobile app app.
+- Failing to punch in/out will result in "Half Day" marking.
+
+Remote Work:
+- Work from Home (WFH) is allowed up to 4 days a month with manager approval.
+- Remote employees must be reachable on Slack/Teams during work hours.
+
+Late Arrival:
+- 3 late arrivals (> 15 mins) in a month = 1/2 day CL deduction.

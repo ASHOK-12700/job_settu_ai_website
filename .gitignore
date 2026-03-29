@@ -9,6 +9,11 @@ node_modules/
 .env.production.local
 *.env
 
+# API Keys and secrets
+backend/key.txt
+*.key
+secrets/
+
 # Build outputs
 build/
 dist/

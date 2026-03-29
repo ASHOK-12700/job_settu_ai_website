@@ -1,0 +1,20 @@
+PATCH INSTRUCTIONS FOR FRONTEND
+
+1. Open `client/src/App.js`.
+2. Import the new component at the top:
+   import HRAssistant from "./components/HRAssistant";
+
+3. Locate the `HomePage` component usage inside `function App()`.
+   It looks like:
+   {token && view === "home" && (
+     <HomePage onStartPractice={() => setView("domain")} />
+   )}
+
+4. Replace `<HomePage ... />` with `<HRAssistant />`:
+   {token && view === "home" && (
+     <HRAssistant />
+   )}
+
+5. Save the file.
+
+The `HRAssistant` component will now be rendered when the user logs in and is on the "home" view.

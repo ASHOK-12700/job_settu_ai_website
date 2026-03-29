@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+python-multipart
+sentence-transformers
+faiss-cpu
+google-generativeai
+numpy
+regex
+requests
+python-dotenv
+openai
